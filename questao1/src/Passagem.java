@@ -1,9 +1,4 @@
 import java.util.List;
-
-/**
- * Produto abstrato do Factory Method.
- * Reúne os dados e o comportamento comum a todas as passagens.
- */
 public abstract class Passagem {
     private final String nomePassageiro;
     private final double tarifa;
@@ -11,10 +6,10 @@ public abstract class Passagem {
 
     protected Passagem(String nomePassageiro, double tarifa) {
         if (nomePassageiro == null || nomePassageiro.isBlank()) {
-            throw new IllegalArgumentException("O nome do passageiro é obrigatório.");
+            throw new IllegalArgumentException("o nome foi deixando em branco .O nome do passageiro é obrigatório .");
         }
         if (tarifa < 0) {
-            throw new IllegalArgumentException("A tarifa não pode ser negativa.");
+            throw new IllegalArgumentException("valores negativos de tarifa nao sao aceitaveis.");
         }
         this.nomePassageiro = nomePassageiro;
         this.tarifa = tarifa;
@@ -22,7 +17,6 @@ public abstract class Passagem {
 
     public abstract String getModal();
 
-    /** Percentual específico de cada modal. */
     protected abstract double getPercentualTaxa();
 
     public abstract List<String> getDocumentosExigidos();
