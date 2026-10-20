@@ -4,8 +4,8 @@ public class Main {
         EmissorPassagem emissorRodoviario = new EmissorRodoviario();
         EmissorPassagem emissorFerroviario = new EmissorFerroviario();
 
-        emissorAereo.emitirPassagem("Ana Souza", 850.00);
-        emissorRodoviario.emitirPassagem("Bruno Lima", 120.00);
-        emissorFerroviario.emitirPassagem("Carla Mendes", 200.00);
+        emissorAereo.emitirPassagem("joao", 850.00);
+        emissorRodoviario.emitirPassagem("chico", 120.00);
+        emissorFerroviario.emitirPassagem("tomas", 500.00);
     }
 }
