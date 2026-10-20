@@ -1,0 +1,69 @@
+@startuml
+title Matrículas Internacionais — Abstract Factory (GoF)
+
+interface DocumentoFiscal {
+  + descricao(): String
+}
+interface ProcessadorPagamento {
+  + descricao(): String
+}
+interface ComprovanteMatricula {
+  + descricao(): String
+}
+
+interface FabricaArtefatosPais {
+  + criarDocumentoFiscal(): DocumentoFiscal
+  + criarProcessadorPagamento(): ProcessadorPagamento
+  + criarComprovanteMatricula(): ComprovanteMatricula
+}
+
+class DocumentoFiscalBrasil
+class PagamentoPix
+class ComprovanteCpf
+class FabricaBrasil
+
+class DocumentoFiscalChile
+class PagamentoWebpay
+class ComprovanteRut
+class FabricaChile
+
+class Matricula {
+  - documentoFiscal: DocumentoFiscal
+  - processadorPagamento: ProcessadorPagamento
+  - comprovanteMatricula: ComprovanteMatricula
+  + Matricula(fabrica: FabricaArtefatosPais)
+  + imprimirRelatorio(): void
+}
+
+DocumentoFiscal <|.. DocumentoFiscalBrasil
+ProcessadorPagamento <|.. PagamentoPix
+ComprovanteMatricula <|.. ComprovanteCpf
+FabricaArtefatosPais <|.. FabricaBrasil
+
+DocumentoFiscal <|.. DocumentoFiscalChile
+ProcessadorPagamento <|.. PagamentoWebpay
+ComprovanteMatricula <|.. ComprovanteRut
+FabricaArtefatosPais <|.. FabricaChile
+
+Matricula --> FabricaArtefatosPais : recebe no construtor
+Matricula o--> DocumentoFiscal
+Matricula o--> ProcessadorPagamento
+Matricula o--> ComprovanteMatricula
+
+FabricaBrasil ..> DocumentoFiscalBrasil : cria
+FabricaBrasil ..> PagamentoPix : cria
+FabricaBrasil ..> ComprovanteCpf : cria
+
+FabricaChile ..> DocumentoFiscalChile : cria
+FabricaChile ..> PagamentoWebpay : cria
+FabricaChile ..> ComprovanteRut : cria
+
+note bottom of FabricaArtefatosPais
+  Cada fábrica cria uma família
+  de artefatos do mesmo país.
+end note
+note bottom of Matricula
+  Depende somente de abstrações;
+  não seleciona país com if/switch.
+end note
+@enduml
