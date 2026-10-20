@@ -1,1 +1,84 @@
+abstract class Passagem {
+  - nomePassageiro: String
+  - tarifa: double
+  - taxaEmbarque: double
+  # Passagem(nomePassageiro: String, tarifa: double)
+  + getModal(): String
+  # getPercentualTaxa(): double
+  + getDocumentosExigidos(): List<String>
+  + calcularTaxaEmbarque(): double
+  + imprimirResumo(): void
+  + getNomePassageiro(): String
+  + getTarifa(): double
+  + getTaxaEmbarque(): double
+}
+
+class PassagemAerea {
+  + PassagemAerea(nomePassageiro: String, tarifa: double)
+  + getModal(): String
+  # getPercentualTaxa(): double
+  + getDocumentosExigidos(): List<String>
+}
+class PassagemRodoviaria {
+  + PassagemRodoviaria(nomePassageiro: String, tarifa: double)
+  + getModal(): String
+  # getPercentualTaxa(): double
+  + getDocumentosExigidos(): List<String>
+}
+class PassagemFerroviaria {
+  + PassagemFerroviaria(nomePassageiro: String, tarifa: double)
+  + getModal(): String
+  # getPercentualTaxa(): double
+  + getDocumentosExigidos(): List<String>
+}
+
+abstract class EmissorPassagem {
+  # criarPassagem(nomePassageiro: String, tarifa: double): Passagem
+  + emitirPassagem(nomePassageiro: String, tarifa: double): void
+}
+class EmissorAereo {
+  # criarPassagem(nomePassageiro: String, tarifa: double): Passagem
+}
+class EmissorRodoviario {
+  # criarPassagem(nomePassageiro: String, tarifa: double): Passagem
+}
+class EmissorFerroviario {
+  # criarPassagem(nomePassageiro: String, tarifa: double): Passagem
+}
+class Main
+
+Passagem <|-- PassagemAerea
+Passagem <|-- PassagemRodoviaria
+Passagem <|-- PassagemFerroviaria
+
+EmissorPassagem <|-- EmissorAereo
+EmissorPassagem <|-- EmissorRodoviario
+EmissorPassagem <|-- EmissorFerroviario
+
+EmissorPassagem ..> Passagem : cria e usa abstração
+EmissorAereo ..> PassagemAerea : cria
+EmissorRodoviario ..> PassagemRodoviaria : cria
+EmissorFerroviario ..> PassagemFerroviaria : cria
+Main ..> EmissorPassagem : usa abstração
+
+note right of EmissorPassagem
+  Fluxo único:
+  1. criarPassagem()
+  2. calcularTaxaEmbarque()
+  3. imprimirResumo()
+end note
+
+note right of PassagemAerea
+  Taxa: 8%
+  Identidade com foto + e-ticket
+end note
+note right of PassagemRodoviaria
+  Taxa: 3%
+  Identidade com foto
+end note
+note right of PassagemFerroviaria
+  Taxa: 5%
+  Identidade com foto + reserva
+end note
+@enduml
 
